@@ -5,6 +5,7 @@ from torch import nn
 class Regress(nn.Module):
     def __init__(self, probabilistic=False, in_chan=3, batch_norm=False):
         super(Regress, self).__init__()
+        self.probabilistic=probabilistic
         n_out = 1 + int(probabilistic)
         self.conv_blocks = nn.Sequential(
             ResMod(in_chan=in_chan, out_chan=in_chan, batch_norm=batch_norm),
@@ -15,7 +16,7 @@ class Regress(nn.Module):
             nn.Conv2d(64, 128, 3, stride=2),
         )
         if probabilistic:
-            s = 210
+            s = 190
         else:
             s = 190
         adjustment = s // 2 ** 4
@@ -33,6 +34,12 @@ class Regress(nn.Module):
         out = self.conv_blocks(img)
         out = out.view(out.shape[0], -1)
         y = self.dense_unit(out)
+        if self.probabilistic:
+            add=[0,2]
+            a=[]
+            for i in range(0,y.shape[0]):
+                a.append(add)
+            y=y.abs().float()+t.tensor(a).to("cuda").float()
         return y
 
 

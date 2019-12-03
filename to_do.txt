@@ -1,0 +1,4 @@
+
+add sigma example in presentation that clearly shows when sigma is higher visually there is ambiguity while when its low there is a more obvious age
+
+

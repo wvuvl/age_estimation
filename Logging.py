@@ -1,4 +1,4 @@
-def log(folder, split, batch_norm, probabilistic, epochs, output_folder, lr, batch_size):
+def log(folder, split, batch_norm, probabilistic, epochs, output_folder, lr, batch_size,lr_red_int):
     params = [str(lr),
               str(probabilistic),
               str(split),
@@ -6,7 +6,8 @@ def log(folder, split, batch_norm, probabilistic, epochs, output_folder, lr, bat
               str(epochs),
               str(batch_size),
               str(folder),
-              str(output_folder)]
+              str(output_folder),
+              str(lr_red_int)]
     log = ""
     for entry in params:
         log += "," + entry
